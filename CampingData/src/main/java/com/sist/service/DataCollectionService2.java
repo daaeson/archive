@@ -59,7 +59,10 @@ public class DataCollectionService2 {
 				Elements link = doc.select("ul.prdList li.item div.description a");
 				for(int k=0; k<link.size(); k++)
 				{
-					System.out.println(link.get(k).attr("href"));
+//					System.out.println(link.get(k).attr("href"));
+					Document doc2=Jsoup.connect("https://campinglist.co.kr"+link.get(k).attr("href")).get();
+					// 1. 이미지
+					Elements image=doc2.select("");
 				}
 				
 			}
