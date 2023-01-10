@@ -179,7 +179,7 @@ public class BoardDAO {
 			disConnection();
 		}
 	}
-	// 수정 => 비번 => javaScript
+	
 	// 수정 데이터 읽기
 	public BoardVO boardUpdateData(int no)
 	{
@@ -209,7 +209,92 @@ public class BoardDAO {
 		}
 		return vo;
 	}
+	// 수정 => 비번 => javaScript
+	public boolean boardUpdate(BoardVO vo) // 수정할 데이터 여러 개 => VO
+	{
+		// boolean => 비밀번호 동일 여부 => 경우의 수가 여럿이면 int, String / 두 개면 boolean
+		// 수정 => 비밀번호(O) => 수정하고 상세보기로 이동 / 비밀번호(X) => 수정 없이 이전 화면으로 이동
+		boolean bCheck=false;
+		try
+		{
+			// 1. 연결
+			getConnection();
+			// 2. SQL => 두 번 수행
+			// 2-1 => 비밀번호 확인
+			String sql="SELECT pwd FROM jsp_board "
+					+ "WHERE no=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, vo.getNo());
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String db_pwd=rs.getString(1);
+			rs.close();
+//			System.out.println("db_pwd = "+db_pwd+", pwd = "+vo.getPwd()); // 디버깅
+			// 비밀번호를 체크
+			if(db_pwd.equals(vo.getPwd()))
+			{
+				bCheck=true;
+				// 실제 수정
+				sql = "UPDATE jsp_board SET "
+						+ "name=?,subject=?,content=? "
+						+ "WHERE no=?";
+				ps=conn.prepareStatement(sql);
+				ps.setString(1,vo.getName());
+				ps.setString(2, vo.getSubject());
+				ps.setString(3, vo.getContent());
+				ps.setInt(4, vo.getNo());
+				
+				// 실행 명령
+				ps.executeUpdate();
+			}
+			
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return bCheck;
+	}
 	// 삭제 => 비번 => javaScript
+	public boolean boardDelete(int no,String pwd)
+	{
+		boolean bCheck=false;
+		try
+		{
+			getConnection();
+			// 비밀번호 체크
+			String sql="SELECT pwd FROM jsp_board "
+					+"WHERE no=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String db_pwd=rs.getString(1);
+			rs.close();
+			
+			if(db_pwd.equals(pwd))	// 삭제
+			{
+				sql="DELETE FROM jsp_board "
+						+ "WHERE no=?";
+				ps=conn.prepareStatement(sql);
+				ps.setInt(1, no);
+				ps.executeUpdate();
+				
+				bCheck=true;
+			}
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return bCheck;
+	}
 	// 찾기 => <select> <checkbox> ==> 파일 내 처리 방식 고민해볼 것
 	
 	

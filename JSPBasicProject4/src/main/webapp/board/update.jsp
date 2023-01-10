@@ -34,7 +34,7 @@ h1{
 				<tr>
 					<th class="text-right success" width=20%>이름</th>
 					<td width=80%>
-						<input type=text name=name size=15 class="input-sm" value="<%=vo.getName()%>">
+						<input type=text name=name size=15 class="input-sm" value="<%=vo.getName()%>" required>
 						<input type=hidden name=no value="<%=vo.getNo() %>">
 						<!-- hidden : 데이터 값을 전송하되 사용자에게 감추는 경우 // 위치 : table 내 td 어느 곳에나-->
 					</td>
@@ -42,7 +42,7 @@ h1{
 				<tr>
 					<th class="text-right success" width=20%>제목</th>
 					<td width=80%>
-						<input type=text name=subject size=50 class="input-sm" value="<%=vo.getSubject()%>"><!-- "" 없으면 '자유게시판 만들기' 중 '자유게시판'만 출력 -->
+						<input type=text name=subject size=50 class="input-sm" value="<%=vo.getSubject()%>" required><!-- "" 없으면 '자유게시판 만들기' 중 '자유게시판'만 출력 -->
 					</td>
 				</tr>
 				<tr>
@@ -54,7 +54,7 @@ h1{
 				<tr>
 					<th class="text-right success" width=20%>비밀번호</th>
 					<td width=80%>
-						<input type=password name=pwd size=10 class="input-sm">
+						<input type=password name=pwd size=10 class="input-sm" required>
 					</td>
 				</tr>
 				<tr>
