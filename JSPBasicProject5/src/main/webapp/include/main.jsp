@@ -15,6 +15,20 @@
 		case 1:
 			jsp="../food/food_list.jsp";
 			break;
+		case 2:
+			jsp="../food/food_detail.jsp";
+			break;
+	}
+	
+	String log_jsp="";
+	String id=(String)session.getAttribute("id");
+	if(id==null)
+	{
+		log_jsp="login.jsp";
+	}
+	else
+	{
+		log_jsp="logout.jsp";
 	}
 %>
 
@@ -44,7 +58,7 @@ h1{
 	<div class="container main">
 		<div class="col-sm-3">
 			<%
-				pageContext.include("login.jsp");
+				pageContext.include(log_jsp);
 			%>
 		</div>
 		<div class="col-sm-9">

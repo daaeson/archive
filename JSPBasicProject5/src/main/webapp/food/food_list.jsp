@@ -29,7 +29,27 @@
 					for(FoodVO fvo:list)
 					{
 				%>
-						
+						<table class="table">
+							<tr>
+								<td width=30% class="text-center" rowspan="4">
+								  <a href="main.jsp?mode=2&fno=<%=fvo.getFno()%>">
+									<img src="<%=fvo.getPoster() %>" style="width: 270px; height: 200px" class="img-rounded">
+								  </a>
+								</td>
+								<td width=70%>
+									<h3><a href="main.jsp?mode=2&fno=<%=fvo.getFno()%>"><%=fvo.getName() %></a>&nbsp;<span style="color:orange"><%=fvo.getScore() %></span></h3>
+								</td>
+							</tr>
+							<tr>
+								<td width=70% class="text-left"><%=fvo.getAddress() %></td>
+							</tr>
+							<tr>
+								<td width=70% class="text-left"><%=fvo.getTel() %></td>
+							</tr>
+							<tr>
+								<td width=70% class="text-left"><%=fvo.getType() %></td>
+							</tr>							
+						</table>
 				<%	
 					}
 				%>
@@ -39,13 +59,3 @@
 	</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-

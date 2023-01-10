@@ -160,7 +160,103 @@ public class FoodDAO {
 		}
 		return list;
 	}
-
+	
+	// 로그인 처리
+	public MemberVO isLogin(String id, String pwd)
+	{
+		MemberVO vo = new MemberVO();
+		try
+		{
+			getConnection();
+			String sql="SELECT COUNT(*) FROM jsp_member "
+					+ "WHERE id=?";
+			// 1. ID 유무 확인
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			int count = rs.getInt(1);
+			rs.close();
+			
+			if(count==0)	// ID가 없는 상태
+			{
+				vo.setMsg("NOID");
+			}
+			else	// ID가 있는 상태
+			{
+				sql="SELECT pwd,name,sex FROM jsp_member "
+					+ "WHERE id=?";
+				ps=conn.prepareStatement(sql);
+				ps.setString(1, id);
+				rs=ps.executeQuery();
+				rs.next();
+				String db_pwd=rs.getString(1);
+				String name=rs.getString(2);
+				String sex=rs.getString(3);
+				rs.close();
+				
+				if(pwd.equals(db_pwd))	// 로그인 상태
+				{
+					vo.setMsg("OK");
+					vo.setName(name);
+					vo.setSex(sex);
+				}
+				else // 비밀번호가 틀린 상태
+				{
+					vo.setMsg("WRONGPWD");
+				}
+			}
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return vo;
+	}
+	
+	// 상세보기
+	public FoodVO foodDetailData(int fno)
+	{
+		FoodVO vo=new FoodVO();
+		try
+		{
+			getConnection();
+			String sql="SELECT fno,name,score,poster,tel,type,time,parking,menu,good,soso,bad,price,address "
+					+ "FROM project_food "
+					+ "WHERE fno=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1,fno);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			vo.setFno(rs.getInt(1));
+			vo.setName(rs.getString(2));
+			vo.setScore(rs.getDouble(3));
+			vo.setPoster(rs.getString(4));
+			vo.setTel(rs.getString(5));
+			vo.setType(rs.getString(6));
+			vo.setTime(rs.getString(7));
+			vo.setParking(rs.getString(8));
+			vo.setMenu(rs.getString(9));
+			vo.setGood(rs.getInt(10));
+			vo.setSoso(rs.getInt(11));
+			vo.setBad(rs.getInt(12));
+			vo.setPrice(rs.getString(13));
+			vo.setAddress(rs.getString(14));
+			rs.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return vo;
+	}
+	
 }
 	
 	

@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%--
+	main.jsp : 화면 출력
+	실제 파일명
+ --%>
+	<form method="post" action="login_ok.jsp">
 	<table class="table">
 		<tr>
 			<td width=30% class="text-right">ID</td>
@@ -26,5 +31,6 @@
 			</td>
 		</tr>
 	</table>
+	</form>
 </body>
 </html>
