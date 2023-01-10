@@ -88,7 +88,7 @@
 					<td width=85%><%=vo.getParking() %></td>
 				</tr>
 				<%
-					if(vo.getMenu().equals("no"))
+					if(!vo.getMenu().equals("no"))
 					{
 				%>
 				<tr>
