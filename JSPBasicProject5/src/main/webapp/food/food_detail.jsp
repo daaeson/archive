@@ -11,23 +11,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Food Detail</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ['리뷰', '현황'],
+          ['맛있다', <%=vo.getGood()%>],
+          ['괜찮다', <%=vo.getSoso()%>],
+          ['별로',  <%=vo.getBad()%>]
         ]);
 
         var options = {
-          title: 'My Daily Activities',
+          title: '리뷰 현황',
           is3D: true,
         };
 
@@ -119,15 +117,3 @@
 	</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
