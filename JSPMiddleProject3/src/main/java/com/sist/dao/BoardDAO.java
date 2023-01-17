@@ -259,7 +259,72 @@ public class BoardDAO {
 	}
 	
 	// 6. 삭제 => SQL 4개 문장
-	
+	public boolean boardDelete(int no,String pwd)
+	{
+		boolean bCheck=false;
+		try
+		{
+			getConnection();
+			String sql="SELECT pwd,root,depth "
+					+ "FROM replyboard "
+					+ "WHERE no=?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String db_pwd=rs.getString(1);
+			int root=rs.getInt(2);
+			int depth=rs.getInt(3);
+			rs.close();
+			
+			if(db_pwd.equals(pwd))
+			{
+				bCheck=true;
+				if(depth==0) // 답변이 없는 게시물 => 삭제
+				{
+					sql="DELETE FROM replyBoard "
+							+ "WHERE no=?";
+					ps=conn.prepareStatement(sql);
+					ps.setInt(1, no);
+					ps.executeUpdate();
+					
+				}
+				else // 수정 => 관리자가 삭제한 게시물
+				{
+					String msg="관리자가 삭제한 게시물입니다";
+					sql="UPDATE replyBoard SET "
+							+ "subject=?,content=? "
+							+ "WHERE no=?";
+					ps=conn.prepareStatement(sql);
+					ps.setString(1, msg);
+					ps.setString(2, msg);
+					ps.setInt(3, no);
+					ps.executeUpdate();
+				}
+				
+				// depth 감소
+				if(root!=0)
+				{
+					sql="UPDATE replyBoard SET "
+							+ "dept=dept-1 "
+							+ "WHERE no=?";
+					ps=conn.prepareStatement(sql);
+					ps.setInt(1, root);
+					ps.executeUpdate();
+				}
+				
+					
+			}
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return bCheck;
+	}
 }
 
 

@@ -17,6 +17,7 @@ public class BoardModel {
 		ArrayList<BoardVO> list=dao.boardListData(curpage);
 		request.setAttribute("today", new SimpleDateFormat("YYYY-MM-DD").format(new Date()));
 		request.setAttribute("list", list); // JSP에 전송
+		request.setAttribute("msg", "관리자가 삭제한 게시물입니다");
 	}
 	
 	// insert_ok.jsp 호출
@@ -110,6 +111,15 @@ public class BoardModel {
 			msg="no";
 		request.setAttribute("msg", msg);
 		request.setAttribute("no", no);
+	}
+	
+	public void boardDelete(HttpServletRequest request, HttpServletResponse response)
+	{
+		String no = request.getParameter("no");
+		String pwd = request.getParameter("pwd");
+		BoardDAO dao = new BoardDAO();
+		boolean bCheck=dao.boardDelete(Integer.parseInt(no), pwd);
+		request.setAttribute("bCheck", bCheck);
 	}
 }
 

@@ -122,7 +122,12 @@
 							</c:forEach>
 							<img src="re_icon.png">
 						</c:if>
-						<a href="detail.jsp?no=${vo.no }">${vo.subject }</a>
+						<c:if test="${vo.subject==msg }">
+							<span style="color:gray">${vo.subject }</span>
+						</c:if>
+						<c:if test="${vo.subject!=msg }">
+							<a href="detail.jsp?no=${vo.no }">${vo.subject }</a>
+						</c:if>
 						&nbsp;
 						<c:if test="${today==vo.dbday }">
 							<sup><img src="new.gif"></sup>
