@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	사용자 정의 태그
+	 = 뷰(보여주는 형식의 태그)가 아님, 문서 저장 목적으로 만들어짐
+	 = 문서형 데이터베이스
+	
+	<beans> = 테이블 (최상위 태그) => 전체를 감싸는 태그는 한 개만 필요하다
+		<bean class="com.sist.model.FoodModel"/> : 튜플(row)
+		<bean class="com.sist.model.MainModel"/>
+		<bean class="com.sist.model.SeoulModel"/>
+	</beans>
+-->
+<beans>
+	<bean class="com.sist.model.FoodModel"/>
+	<bean class="com.sist.model.MainModel"/>
+	<bean class="com.sist.model.SeoulModel"/>
+</beans>
+
+
