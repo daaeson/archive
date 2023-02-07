@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
-import com.sist.dao.NoticeDAO;
+import com.sist.dao.*;
 import com.sist.vo.NoticeVO;
 
 @Controller
@@ -124,6 +124,18 @@ public class AdminModel {
 	  dao.noticeUpdate(vo);
 	  return "redirect:notice_list.do";
   }
+  	
+  	@RequestMapping("adminpage/admin_reserve_ok.do")
+  	public String admin_reserve_ok(HttpServletRequest request, HttpServletResponse response)
+  	{
+  		String rno = request.getParameter("rno");
+  		ReserveDAO dao = new ReserveDAO();
+  		dao.reserveAdminOk(Integer.parseInt(rno));
+  		
+  		return "redirect:admin_reserve.do";
+  	}
+  
+  
 }
 
 

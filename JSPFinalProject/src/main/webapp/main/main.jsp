@@ -14,10 +14,11 @@
 <link href="../css/layout.css" rel="stylesheet" type="text/css" media="all">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-<style type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet"><style type="text/css">
 *{
-    font-family: 'Hahmlet', serif;
+    font-family: 'Do Hyeon', sans-serif;
 }
 /*  @media (min-width: 450px) {
   .main-card {

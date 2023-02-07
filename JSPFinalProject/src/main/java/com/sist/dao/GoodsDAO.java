@@ -211,7 +211,7 @@ public class GoodsDAO {
 		   while(rs.next())
 		   {
 			   GoodsVO vo=new GoodsVO();
-			   vo.setNo(rs.getInt(1));
+			   vo.setNo(rs.getInt("no"));
 			   vo.setGoods_name(rs.getString(2));
 			   vo.setGoods_poster(rs.getString(3));
 			   list.add(vo);

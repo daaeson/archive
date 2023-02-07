@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.dao.goods-mapper"> <!-- namespace : 패키지 -->
+  <!-- 
+  		resultType
+  		public List<CartVO> cartListData(String id)
+  		{
+  			...
+  			...
+  			ResultSet rs=ps.executeQuery();
+  			while(rs.next())
+  			{
+  				CartVo vo = new CartVO();
+  				vo.set ... ==> 여기에 값을 담으라고 설정
+  			}
+  			rs.close();
+  		}
+  		
+  		parameterType
+  		  ?에 값을 채운다 => setString(1,id)
+   -->
+   <!--
+   		resultType = 리턴형 => List = selectList (While문 돌아감)
+   							  VO  = selectOne (While문 X)
+   		parameterType = 매개변수
+   -->
+  <resultMap type="CartVO" id="goodsCartMap">
+    <!-- 
+      CartVO vo = new CartVO();
+      vo.setBno(rs.getInt("bno"))
+         property			column
+    -->
+    <result property="bno" column="bno"/>
+    <result property="gno" column="gno"/>
+    <result property="id" column="id"/>
+    <result property="account" column="account"/>
+    <result property="total_price" column="total_price"/>
+    <result property="regdate" column="regdate"/>
+    <result property="buy_ok" column="buy_ok"/>
+    <result property="gvo.goods_poster" column="goods_poster"/>
+    <!-- 
+    	getGvo().setGoods_poster(rs.getString("goods_poster"));
+    -->
+    <result property="gvo.goods_name" column="goods_name"/>
+    <result property="gvo.goods_price" column="goods_price"/>
+  </resultMap>
+  <select id="goodsCartListData" resultMap="goodsCartMap" parameterType="string">
+    SELECT bno,gno,id,pgb.account,total_price,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,
+    buy_ok,goods_poster,goods_name,goods_price
+    FROM project_goods_buy pgb, goods_all ga
+    WHERE pgb.gno=ga.no
+    AND id=#{id}
+  </select>
+  <insert id="goodsCartInsert" parameterType="CartVO"> <!-- cart db에 데이터 집어넣기 -->
+    INSERT INTO project_goods_buy VALUES(pgb_bno_seq.nextval,#{gno},#{id},#{account},#{total_price},'n',SYSDATE)
+  </insert>
+  <delete id="goodsCartDelete" parameterType="int">
+    DELETE FROM project_goods_buy
+    WHERE bno=#{bno}
+  </delete>
+</mapper>
+
+
+
+

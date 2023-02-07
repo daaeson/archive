@@ -36,11 +36,11 @@
 	        <td class="text-center">${vo.rtime}</td>
 	        <td class="text-center">${vo.inwon}</td>
 	        <td class="text-center">
-	          <c:if test="${vo.ok=='y'}">
-	            <span class="btn btn-xs btn-default">승인 완료</span>
-	          </c:if>
 	          <c:if test="${vo.ok=='n' }">
-	            <span class="btn btn-xs btn-success">승인 대기</span>
+	            <a href="../adminpage/admin_reserve_ok.do?rno=${vo.rno }" class="btn btn-xs btn-success">승인대기</a>
+	          </c:if>
+	          <c:if test="${vo.ok=='y' }">
+	            <span class="btn btn-xs btn-default">승인완료</span>
 	          </c:if>
 	        </td>
 	       </tr>
